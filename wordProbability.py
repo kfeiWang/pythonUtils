@@ -1,6 +1,7 @@
 # -*- coding:utf8 -*-
 from __future__ import division
 import codecs
+import re
 
 def calWordProbability(infile, outfile):
     '''
@@ -13,31 +14,40 @@ def calWordProbability(infile, outfile):
         # 用于存储数据结构
         wordDic = {}
         line = fin.readline()
+        linNum = 1
         while line:
+            linNum += 1
+            if linNum % 10001 == 1:
+                print(linNum, line.encode('utf8'))
             line = line.strip() # 删除两端空白符
-            wArr = line.split('\t')
-            if len(wArr) != 2:
-                continue
-            key = wArr[0] # 源语言词
-            val = wArr[1] # 目标语言词
-            if key in wordDic:
-                wordDic[key].append(val)
-            else:
-                valList = []
-                valList.append(val)
-                wordDic[key] = valList
+            wArr = re.split('[ |\t]', line)
+
+            if len(wArr) >= 2:
+                key = wArr[0] # 源语言词
+                val = wArr[1] # 目标语言词
+                if key in wordDic:
+                    wordDic[key][val] = 1
+                else:
+                    valMap = dict()
+                    valMap[val] = 1
+                    wordDic[key] = valMap
             line = fin.readline()
     with codecs.open(outfile, 'w', 'utf8') as fout:
+        print('start write')
+        wCount = 0
         for key in wordDic.keys():
-            valList = wordDic[key]
-            valLen = len(valList)
-            for val in valList:
+            wCount += 1
+            if(wCount % 1001 == 0):
+                print('writing', wCount)
+            if len(key.split(' ')) > 1:
+                continue
+            valMap = wordDic[key]
+            valLen = len(valMap)
+            for val in valMap.keys():
                 fout.write(key)
                 fout.write('\t')
                 fout.write(val)
                 fout.write('\t')
                 fout.write(str(1/valLen))
                 fout.write('\n')
-
-if __name__ == '__main__':
-    calWordProbability('E:/laboratory/ljt/dict.txt', 'E:/laboratory/ljt/dictProb.txt')                
+                

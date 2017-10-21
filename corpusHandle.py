@@ -28,6 +28,3 @@ def setASubSetB(file1, file2, outFile):
                 s3 = set1 - set2
                 for val in s3:
                     fout.write(val)
-
-if __name__ == '__main__':
-    setASubSetB('testData/src.txt', 'testData/test.txt', 'testData/resu.txt')
