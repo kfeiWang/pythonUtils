@@ -24,10 +24,11 @@ def caluPAndRAndF1(file1, file2):
                     raise Exception('句子词数量不一致')
                 for w1, w2 in zip(line1Arr, line2Arr): # 循环对应句子中每个词
                     set1 = packSet(w1) # 将word以/切分后放入集合
-                    set2 = packSet(w1) # 将word以/切分后放入集合
+                    set2 = packSet(w2) # 将word以/切分后放入集合
+                    #print('w1:', w1, len(set1), 'set1:', set1, 'w2', w2, len(set2), 'set2:', set2)
                     totalWordCount += len(set1) # 参考文件中全部词片段数量
                     splitWordCount += len(set2) # 切分后全部词片段数量
-                    rightWordCount += len(set1.union(set2)) # 参考文件词片段和切分后全部词片段交集
+                    rightWordCount += len(set1.intersection(set2)) # 参考文件词片段和切分后全部词片段交集
                 line1 = fin1.readline()
                 line2 = fin2.readline()
     p = rightWordCount*1.0/totalWordCount # 计算准确率
@@ -44,3 +45,10 @@ def packSet(word):
     for w in wArr:
         setR.add(w)
     return setR
+
+def testCaseCaluPAndRAndF1():
+    p,r,f1 = caluPAndRAndF1('testData/srcFile', 'testData/splitFile')
+    print('p:', p, 'r:', r, 'f1:', f1)
+
+if __name__=='__main__':
+    testCaseCaluPAndRAndF1()
