@@ -26,7 +26,7 @@ def delNonMonWord(line):
         return newLine
     return None
 
-def cutWordNNModel(cuttedMonVoc, monVoc, nMonVoc)
+def cutWordNNModel(cuttedMonVoc, monVoc, nMonVoc):
     '''
     cuttedMonVoc: 切分后的蒙古文词典
     monVoc: 蒙古文词典
