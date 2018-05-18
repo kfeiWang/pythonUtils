@@ -3,7 +3,7 @@
 '''
 import os
 import codecs
-import codecs
+import re
 
 def split2Char(fileName, separator=' '):
     '''
@@ -12,14 +12,17 @@ def split2Char(fileName, separator=' '):
     :param separator: 分割符, default=' '
     :return:
     '''
-    outFileName = os.path.join(fileName, '.char')
-    with codecs.open(outFileName, 'w', 'utf8') as fout:
+    with codecs.open(fileName+'.char', 'w', 'utf8') as fout:
         with codecs.open(fileName, 'r', 'utf8') as fin:
             line = fin.readline()
             while line:
-                line = fin.readline()
+                line = line.strip()
                 lineArr = list(line)
-                fout.write(' '.join(lineArr))
+                outline = separator.join(lineArr)
+                outline = re.sub(r' {2,}', ' ', outline)
+                fout.write(outline)
+                fout.write('\n')
+                line = fin.readline()
 
 if __name__ == '__main__':
     split2Char('ch.txt')
