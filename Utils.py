@@ -18,3 +18,8 @@ def split2Char(fileName, separator=' '):
             line = fin.readline()
             while line:
                 line = fin.readline()
+                lineArr = list(line)
+                fout.write(' '.join(lineArr))
+
+if __name__ == '__main__':
+    split2Char('ch.txt')
