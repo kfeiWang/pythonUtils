@@ -6,6 +6,9 @@ import codecs
 import re
 
 def restoreFromMid(fileName, midFileName):
+    '''
+    将函数splitSensSearch拆分的文件还原
+    '''
     with codecs.open(fileName, 'r', 'utf8') as fin:
         with codecs.open(midFileName, 'r', 'utf8') as mfin:
             with codecs.open(fileName+'.rs', 'w', 'utf8') as rsfout:
@@ -30,7 +33,10 @@ def restoreFromMid(fileName, midFileName):
 
 def splitSensSearch(fileName):
     '''
-    @param fileName 拆分句子
+    将指定文件中句子进行拆分，并记录拆分后句子原句索引位置。
+    生成两个文件.mid .resu
+    .mid文件中每行存放一个数字，表示源句子索引数字，
+    @param fileName 拆分句子文件
     '''
     sepDict = {' ᠂':1, ' ᠃':1, ' ︖':1}
     with codecs.open(fileName, 'r', 'utf8') as fin:
