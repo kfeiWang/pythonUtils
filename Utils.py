@@ -32,7 +32,7 @@ def splitSensSearch(fileName):
     '''
     @param fileName 拆分句子
     '''
-    sepDict = {'.':1, '?':1, ';':1}
+    sepDict = {' ᠂':1, ' ᠃':1, ' ︖':1}
     with codecs.open(fileName, 'r', 'utf8') as fin:
         with codecs.open(fileName+'.mid', 'w', 'utf8') as mfout:
             with codecs.open(fileName+'.resu', 'w', 'utf8') as rfout:
